@@ -3,15 +3,17 @@
  * Evolutionary Algorihtm v1.0.0
  *
  * Name:          Evolutionary Algorithm for 4x4 puzzle
- * Description:   Ejemplo de algoritmo genético para resolver un puzzle de 4x4. Basado en los algoritmos del libro
+ * Description:   Example of a genetic algorithm to solve a 4x4 puzzle.
  * Version:       1.0.0
  * Author:        Guillermo Camarena
  * Author URI:    https://gcamarenaprog.com
  * Date:          03-12-2023
  *
  * Additional Information
- * Basado en los algoritmos presentados en el libro "Genetic Algorihms in Java Basics" de los autores Lee Jacobson y
+ *
+ * Based on the algorithms from the book "Genetic Algorithms in Java Basics" by authors Lee Jacobson and
  * Burak Kanber
+ *
  */
 
 $(document).ready(function () {

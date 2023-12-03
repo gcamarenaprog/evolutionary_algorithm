@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>8 Puzzle</title>
+  </head>
+</head>
+
+<body>
+<div class="container-fluid h-100">
+  <div class="row justify-content-center h-100">
+
+    <div id="log" class="col-md-4 bg-dark text-light h-100">
+      <p class="text-muted text-center">----- Start of log -----</p>
+      <div id="info"></div>
+    </div>
+
+    <div id="show" class="col-md-8 bg-light">
+      <div id="start" class="text-center">
+
+        <div id="titleObjetive" class="mt-4">Objetive</div>
+        <div>1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15, 0</div>
+
+        <div id="titleStartingState" class="mt-4">Starting State</div>
+        <div id="array"></div>
+
+        <div id="square">
+          <div id="index-0"></div>
+          <div id="index-1"></div>
+          <div id="index-2"></div>
+          <div id="index-3"></div>
+          <div id="index-4"></div>
+          <div id="index-5"></div>
+          <div id="index-6"></div>
+          <div id="index-7"></div>
+          <div id="index-8"></div>
+          <div id="index-9"></div>
+          <div id="index-10"></div>
+          <div id="index-11"></div>
+          <div id="index-12"></div>
+          <div id="index-13"></div>
+          <div id="index-14"></div>
+          <div id="index-15"></div>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <table class="table table-sm text-center table-striped">
+        <thead>
+        <tr class="thead-dark">
+          <th scope="col">Generation Number</th>
+          <th scope="col">Solutions Number</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/Main.js"></script>
+<script src="js/GeneticAlgorithm.js"></script>
+<script src="js/Population.js"></script>
+<script src="js/Individual.js"></script>
+</body>
+
+</html>

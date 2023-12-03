@@ -1,6 +1,6 @@
 /**
  *
- * Evolutionary Algorihtm v1.0.0
+ * Evolutionary Algorithm v1.0.0
  *
  * Name:          Evolutionary Algorithm for 4x4 puzzle
  * Description:   Example of a genetic algorithm to solve a 4x4 puzzle.
@@ -18,8 +18,10 @@
 
 $(document).ready(function () {
 
-  // Matriz objetiva
+  // Objective matrix
   const objectiveArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+
+
 
   /*  const newGeneticAlgorithmObject = new GeneticAlgorithm(100, 0.01, 0.70, 0);
 
@@ -62,14 +64,16 @@ $(document).ready(function () {
    console.log('----------------------------------------------------------');*/
 
 
-  // Test impesion en web
+  // Print square test
   const newObject = new Individual();
-
   console.log(newObject);
-
-  // Impresion en html
   refreshSquare(newObject.getChromosme);
 
+  // Log test
+  writeToLog('dataName','data','array');
+
+  // Table generation data test
+  insertIntoTable('genData','solData');
 
   /**
    * Graphic part in the HTML ------------------------------------------------------------------------------------------
@@ -87,7 +91,7 @@ $(document).ready(function () {
   }
 
   /**
-   * Actualización de la matriz gráfica
+   * Updating the graphic matrix
    *
    * @param data
    */
@@ -99,7 +103,7 @@ $(document).ready(function () {
   }
 
   /**
-   * Inserta datos en la tabla de generaciones
+   * Insert data into the generations table
    *
    * @param genData
    * @param solData
@@ -109,7 +113,7 @@ $(document).ready(function () {
   }
 
   /**
-   * Scrolla al final del registro
+   * Scroll to the end of the record
    */
   $(function () {
     let log = $('#log');

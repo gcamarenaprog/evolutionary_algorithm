@@ -1,12 +1,17 @@
 /**
  *
+ * Individual class, which contains the properties:
+ *
+ * - Chromosome
+ * - Chromosome size
+ * - Fitness
+ *
  */
 class Individual {
 
   chromosome; // String of numbers between 0 and 15
   chromosomeSize = 16;
   individualFitness = -1; // Quality of adaptation of the individual
-
 
   /**
    * Creates an individual created when we pass a certain chromosome to it

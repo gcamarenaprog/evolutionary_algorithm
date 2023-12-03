@@ -26,15 +26,21 @@
 
 $(document).ready(function () {
 
+  const objPopulation = new Population(1000, 2)
+ // console.log(objPopulation.getBestAdaptedIndividual())
 
-  const objectTest = new Individual(2, targetArray);
+  const objGenetAlgorithm = new GeneticAlgorithm(100,0.7,0.5,1);
+ // console.log(objGenetAlgorithm);
 
+  objGenetAlgorithm.finalCondition(objPopulation);
+
+/*  const objIndividuo = new Individual(2, targetArray);
+  console.log(objIndividuo);*/
+
+/*  const objectTest = new Population(10, 2);
   console.log(objectTest);
-  console.log(objectTest.getGeneChromosome(15))
-objectTest.setGeneChromosome(15, 10)
-  console.log(objectTest.getGeneChromosome(15))
-  console.log(objectTest);
 
+  objectTest.getBestAdaptedIndividual()*/
 
   /*  const newGeneticAlgorithmObject = new GeneticAlgorithm(100, 0.01, 0.70, 0);
 

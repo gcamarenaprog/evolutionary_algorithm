@@ -1,5 +1,11 @@
 /**
- * Clase Algoritmo Genético
+ * Generic Algorithm class, which contains:
+ *
+ * Attributes
+ *  - targetArray
+ *
+ *  Methods
+ *
  */
 class GeneticAlgorithm {
 
@@ -8,7 +14,8 @@ class GeneticAlgorithm {
   crossbreedingMug;
   eliteNumber;
 
-  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish, please re declare values into of the classes
+  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish
+
 
   /**
    *
@@ -24,6 +31,24 @@ class GeneticAlgorithm {
     this.eliteNumber = eliteNumber;
   }
 
+
+  /**
+   * Final stop condition, if the fitness is equal to 1. This means that the combination is equal to the final objective.
+   * @param population
+   * @return {boolean}
+   */
+  finalCondition(population) {
+    console.log(population)
+    for (let i = 0; i < population.size; i++) {
+      if (population.population[i].fitness == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+
   /**
    * Retorna la nueva población con el cruzamiento aplicado
    * @param population
@@ -34,7 +59,7 @@ class GeneticAlgorithm {
 
     // console.log(population)
     // Se crea una nueva población
-    const newPopulation = new Population(population.getPopulationSize, 1);
+    const newPopulation = new Population(population.getPopulationSize, 1); // Era 1
     let parent1 = [];
     let parent2 = [];
     let descendant = [];
@@ -75,7 +100,7 @@ class GeneticAlgorithm {
         // Añade la descendencia a la nueva población
         newPopulation.setIndividualNew(i, descendant);
 
-      }else{
+      } else {
         newPopulation.setIndividualNew(i, parent1);
       }
     }
@@ -124,21 +149,10 @@ class GeneticAlgorithm {
   }
 
   populationInitialization(populationSize) {
-    const population = new Population(populationSize, 0);
+    const population = new Population(populationSize, 0); // era 0
     return population;
   }
 
-  finalCondition(population) {
-
-    for (let i=0; i < population.population.length; i++) {
-      //console.log(population.population[i].individualFitness);
-      if (population.population[i].individualFitness >= 0.2) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
 
   calculateIndividualFitness(individual) {
     const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];

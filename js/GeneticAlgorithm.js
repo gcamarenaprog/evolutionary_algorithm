@@ -8,6 +8,8 @@ class GeneticAlgorithm {
   crossbreedingMug;
   eliteNumber;
 
+  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish, please re declare values into of the classes
+
   /**
    *
    * @param populationSize
@@ -62,10 +64,10 @@ class GeneticAlgorithm {
           // Usa la mitad de los genes de ambos padres
           if (0.5 > Math.random()) {
             // console.log('here1')
-            descendant.setChromosome(genIndex, parent1.getChromosmeIndex(genIndex));
+            descendant.setChromosome(genIndex, parent1.getGeneChromosome(genIndex));
           } else {
             //console.log('here2')
-            descendant.setChromosome(genIndex, parent2.getChromosmeIndex(genIndex));
+            descendant.setChromosome(genIndex, parent2.getGeneChromosome(genIndex));
           }
 
         }
@@ -139,11 +141,11 @@ class GeneticAlgorithm {
   }
 
   calculateIndividualFitness(individual) {
-    const objectiveArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+    const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
     let correctGenes = 0;
     let fitnessNumber = 0;
-    for (var i = 0; i < objectiveArray.length; i++) {
-      if (objectiveArray[i] == individual.getChromosme[i]) {
+    for (var i = 0; i < targetArray.length; i++) {
+      if (targetArray[i] == individual.getChromosme[i]) {
         correctGenes++;
       }
     }

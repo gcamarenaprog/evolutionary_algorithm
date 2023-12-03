@@ -16,11 +16,24 @@
  *
  */
 
+
+  // Target array, change the order as you wish, please re declare values into of the classes
+  const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+
+  // Chromosome size, please re declare values into of the classes
+  const chromosomeSize = 16;
+
+
 $(document).ready(function () {
 
-  // Objective matrix
-  const objectiveArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 
+  const objectTest = new Individual(2, targetArray);
+
+  console.log(objectTest);
+  console.log(objectTest.getGeneChromosome(15))
+objectTest.setGeneChromosome(15, 10)
+  console.log(objectTest.getGeneChromosome(15))
+  console.log(objectTest);
 
 
   /*  const newGeneticAlgorithmObject = new GeneticAlgorithm(100, 0.01, 0.70, 0);
@@ -64,16 +77,30 @@ $(document).ready(function () {
    console.log('----------------------------------------------------------');*/
 
 
-  // Print square test
-  const newObject = new Individual();
-  console.log(newObject);
-  refreshSquare(newObject.getChromosme);
+  /**
+   * Test of graphic part in the HTML ----------------------------------------------------------------------------------
+   */
 
-  // Log test
-  writeToLog('dataName','data','array');
+  /*    // Print square test
+   const newObjectTest = new Individual(2, targetArray);
+   //console.log(newObjectTest.getChromosme);
 
-  // Table generation data test
-  insertIntoTable('genData','solData');
+   // Print the target array on log
+   printTargetArray(targetArray);
+   writeToLog('Target array', targetArray, 'target');
+
+   // Print "Starting State" on log
+   printTargetArray(newObjectTest.getChromosme);
+   writeToLog('Starting State', newObjectTest.getChromosme, 'target');
+
+   // Refresh and print square
+   refreshSquare(newObjectTest.getChromosme)
+
+   // Log test
+   writeToLog('dataName', 'data', 'array');
+
+   // Table generation data test
+   insertIntoTable('genData', 'solData');*/
 
   /**
    * Graphic part in the HTML ------------------------------------------------------------------------------------------
@@ -91,6 +118,14 @@ $(document).ready(function () {
   }
 
   /**
+   * Print array objective
+   * @param data
+   */
+  function printTargetArray(data) {
+    $("#arrayObjective").text("[" + data + "]");
+  }
+
+  /**
    * Updating the graphic matrix
    *
    * @param data
@@ -100,6 +135,7 @@ $(document).ready(function () {
       $("#index-" + i).text(data[i]);
     }
     $("#array").text("[" + data + "]");
+
   }
 
   /**

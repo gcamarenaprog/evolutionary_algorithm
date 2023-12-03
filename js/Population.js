@@ -1,27 +1,33 @@
-
 /**
+ * Population class, which contains the attributes:
  *
+ * - Chromosome
+ * - Chromosome size
+ * - Fitness
+ * - Target array
  */
 class Population {
 
-  population = []; // An array de individuals
-  populationSize = 0;
-  populationFitness = -1; // Quality of adaptation of the population
+  population = []; // An array of individuals
+  size = 0; // Population size
+  fitness = -1; // Quality of adaptation of the population
   populationBestIndividual = [];
   populationBestIndividualPosition = 0;
   populationBestIndividualFitness = 0;
   populationBestIndividualChromosome = [];
 
+  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish, please re declare values into of the classes
+
   /**
    *
-   * @param populationSize
+   * @param size
    */
-  constructor(populationSize, empty) {
+  constructor(size, empty) {
 
     if (empty == 0) {
-      this.populationSize = populationSize;
-      this.population = [populationSize];
-      for (let i = 0; i < populationSize; i++) {
+      this.size = size;
+      this.population = [size];
+      for (let i = 0; i < size; i++) {
         let chromosome = [];
         const individualObject = new Individual();
         if (this.population.includes(individualObject)) {
@@ -32,9 +38,9 @@ class Population {
       }
       this.calculatePopulationFitness;
     } else {
-      this.populationSize = populationSize;
-      this.population = [populationSize];
-      for (let i = 0; i < populationSize; i++) {
+      this.size = size;
+      this.population = [size];
+      for (let i = 0; i < size; i++) {
         let chromosome = [];
         const individualObject = new Individual(1);
         this.population.push(individualObject);
@@ -47,10 +53,10 @@ class Population {
 
   get calculatePopulationFitness() {
     let totalFintness = 0;
-    for (let i = 1; i < this.populationSize; i++) {
+    for (let i = 1; i < this.size; i++) {
       totalFintness = totalFintness + this.population[i].individualFitness;
     }
-    this.populationFitness = totalFintness;
+    this.fitness = totalFintness;
   }
 
 
@@ -59,19 +65,19 @@ class Population {
   }
 
   get getPopulationSize() {
-    return this.populationSize;
+    return this.size;
   }
 
-  set setPopulation(populationSize) {
-    this.population = populationSize[populationSize];
+  set setPopulation(size) {
+    this.population = size[size];
   }
 
   get getFitnessPopulation() {
-    return this.populationFitness;
+    return this.fitness;
   }
 
   set setFitnessPopulation(fitness) {
-    this.populationFitness = fitness;
+    this.fitness = fitness;
   }
 
   get getBestAdaptedIndividual() {
@@ -82,7 +88,7 @@ class Population {
 
     //console.log(this.population)
 
-    for (let i = 1; i < this.populationSize; i++) {
+    for (let i = 1; i < this.size; i++) {
       if (this.population[i].individualFitness > bestAdaptedIndividualFitness) {
         bestAdaptedIndividualFitness = this.population[i].individualFitness;
         //console.log(this.population[i].individualFitness);

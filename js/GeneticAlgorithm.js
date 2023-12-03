@@ -1,39 +1,52 @@
 /**
- * Generic Algorithm class, which contains:
+ *
+ * This class has the methods and variables necessary for the operations of the genetic algorithm itself. For example,
+ * this class includes logic to handle crossovers, mutations, fitness evaluations, and termination condition checking.
+ * Once the class is created, add a constructor that accepts all four parameters: population size, mutation rate,
+ * crossover rate, and number of elite members.
+ *
+ * Genetic Algorithm class, which contains:
  *
  * Attributes
- *  - targetArray
+ * - targetArray
+ * - populationSize
+ * - mutationMug
+ * - crossoverRate
+ * - eliteNumber
  *
- *  Methods
+ * Methods
+ * - finalCondition(population)
+ * - parentSelectWithBinaryMethod(population)
  *
  */
 class GeneticAlgorithm {
 
-  populationSize;
-  mutationMug;
-  crossbreedingMug;
-  eliteNumber;
-
+  populationSize; // Size population
+  mutationMug; // Mutation mug
+  crossoverRate; // Crossover rate
+  eliteNumber; // Elite number
   targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish
 
 
   /**
-   *
+   * Initialize the GeneticAlgorithm class with the parameters:
    * @param populationSize
    * @param mutationMug
-   * @param crossbreedingMug
+   * @param crossoverRate
    * @param eliteNumber
    */
-  constructor(populationSize, mutationMug, crossbreedingMug, eliteNumber) {
+  constructor(populationSize, mutationMug, crossoverRate, eliteNumber) {
     this.populationSize = populationSize;
     this.mutationMug = mutationMug;
-    this.crossbreedingMug = crossbreedingMug;
+    this.crossoverRate = crossoverRate;
     this.eliteNumber = eliteNumber;
   }
 
 
   /**
-   * Final stop condition, if the fitness is equal to 1. This means that the combination is equal to the final objective.
+   * Final stop condition, if the fitness is equal to 1. This means that the combination is equal to the final
+   * objective.
+   *
    * @param population
    * @return {boolean}
    */
@@ -47,6 +60,58 @@ class GeneticAlgorithm {
       }
     }
   }
+
+  /**
+   * Selected from the father by Binary Tournament Method
+   *
+   * In this, the GA randomly selects two individuals from the population with the same probability, subsequently the
+   * fitness value of each of the selected individuals is calculated. The individual with the best fitness value will
+   * be the finally selected individual.
+   *
+   * @param {Population[]} population
+   * @return {Individual[]}
+   */
+  parentSelectWithBinaryMethod(population) {
+
+    let parent1 = [];
+    let parent2 = [];
+    let min = 0;
+    let max = population.length;
+
+    // Two individuals are randomly selected from the population
+    let parentIndex1 = this.getRandomInt(min, max);
+    let parentIndex2 = this.getRandomInt(min, max);
+
+    // Prevent them from being the same parents
+    while (parentIndex1 == parentIndex2) {
+      parentIndex2 = this.getRandomInt(min, max);
+    }
+
+    // The fitnesses are compared and the parent with the highest fitness is chosen
+    if (population[parentIndex1].fitness <= population[parentIndex2].fitness) {
+      return population[parentIndex2]
+    } else {
+      return population[parentIndex1]
+    }
+  }
+
+  /**
+   * Returns a random integer between the given minimum and maximum
+   * @param min {number}
+   * @param max {number}
+   * @return {number}
+   */
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+  }
+
+
+
+
+
+
 
 
   /**
@@ -72,7 +137,7 @@ class GeneticAlgorithm {
       // console.log(parent1)
 
       // Aplica el cruzamiento a los individuos
-      if (this.crossbreedingMug > Math.random() && i >= this.eliteNumber) {
+      if (this.crossoverRate > Math.random() && i >= this.eliteNumber) {
 
         // Encuentra el segundo padre
         parent2 = this.parentSelectWithBinaryMethod(population);
@@ -109,44 +174,10 @@ class GeneticAlgorithm {
     return newPopulation;
   }
 
-  /**
-   * Seleccion del padre por Método Torneo Binario
-   *
-   * En este, el AG selecciona aleatoriamente y con la misma
-   * probabilidad dos individuos de la población, posteriormente se calcula el valor de fitness de cada uno de los
-   * individuos seleccionados. El individuo con mejor valor de fitness será el individuo finalmente seleccionado.
-   *
-   * @param population
-   * @return
-   */
-  parentSelectWithBinaryMethod(population) {
 
-    let parent1 = [];
-    let parent2 = [];
-    let min = 1;
-    let max = population.getPopulationSize;
 
-    parent1 = this.getRandomInt(min, max);
-    parent2 = this.getRandomInt(min, max);
 
-    while (parent2 != parent1) {
-      parent2 = this.getRandomInt(min, max);
-    }
 
-    if (population.population[parent1].individualFitness <= population.population[parent2].individualFitness) {
-      //console.log(population.population[parent2])
-      return population.population[parent2];
-    } else {
-      //console.log(population.population[parent1])
-      return population.population[parent1];
-    }
-  }
-
-  getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-  }
 
   populationInitialization(populationSize) {
     const population = new Population(populationSize, 0); // era 0

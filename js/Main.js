@@ -1,5 +1,7 @@
 /**
  *
+ * Main file: This file is the starting point for initializing the genetic algorithm and for the web application.
+ *
  * Evolutionary Algorithm v1.0.0
  *
  * Name:          Evolutionary Algorithm for 4x4 puzzle
@@ -18,30 +20,41 @@
  */
 
 
-  // Target array, change the order as you wish, please re declare values into of the classes
-  const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+// Target array, change the order as you wish, please re declare values into of the classes
+const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 
-  // Chromosome size, please re declare values into of the classes
-  const chromosomeSize = 16;
+// Chromosome size, please re declare values into of the classes
+const chromosomeSize = 16;
 
 
 $(document).ready(function () {
 
-  const objPopulation = new Population(1000, 2)
- // console.log(objPopulation.getBestAdaptedIndividual())
+  const objPopulation = new Population(10, 2);
+  console.log(objPopulation.population)
+  let population = objPopulation.population;
 
-  const objGenetAlgorithm = new GeneticAlgorithm(100,0.7,0.5,1);
- // console.log(objGenetAlgorithm);
 
-  objGenetAlgorithm.finalCondition(objPopulation);
+  const objGenetic = new GeneticAlgorithm(100,0.01,0.95,0)
+  console.log(population)
 
-/*  const objIndividuo = new Individual(2, targetArray);
-  console.log(objIndividuo);*/
+  let res = objGenetic.parentSelectWithBinaryMethod(population)
 
-/*  const objectTest = new Population(10, 2);
-  console.log(objectTest);
+  console.log(res)
 
-  objectTest.getBestAdaptedIndividual()*/
+
+
+  //const objGenetAlgorithm = new GeneticAlgorithm(100, 0.01, 0.95, 0);
+  // console.log(objGenetAlgorithm);
+
+ // objGenetAlgorithm.finalCondition(objPopulation);
+
+  /*  const objIndividuo = new Individual(2, targetArray);
+   console.log(objIndividuo);*/
+
+  /*  const objectTest = new Population(10, 2);
+   console.log(objectTest);
+
+   objectTest.getBestAdaptedIndividual()*/
 
   /*  const newGeneticAlgorithmObject = new GeneticAlgorithm(100, 0.01, 0.70, 0);
 

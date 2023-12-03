@@ -48,11 +48,16 @@ class Population {
         const individualObject = new Individual(1);
         this.population.push(individualObject);
       }
-    } else {
+    } else { // It prevents the repetition of individuals in the population
       for (let i = 0; i < this.size; i++) {
         let individualObject = new Individual(2, this.targetArray);
+        let isEqual = this.population.includes(individualObject, 0);
+        while (isEqual) {
+          isEqual = this.population.includes(individualObject, 0);
+        }
         this.population.push(individualObject);
         individualObject.intializeIndividual(this.targetArray);
+
       }
       this.fitness = this.calculatePopulationFitness();
     }

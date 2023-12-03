@@ -39,7 +39,7 @@ Cada clase tiene sus propios atributos y métodos para la implementación de la 
 
 Descargue el código del repositorio y ejecute el archivo index.html.
 
-## Cómo utilizar
+##Cómo utilizar
 
 Para ejecutar el programa, simplemente abra la página index.html, tiene dos modos gráfico y de consola. Para ver la consola debes
 utilice la herramienta de "inspección" en su navegador y seleccione la herramienta "consola".
@@ -50,36 +50,75 @@ cada clase.
 
 # Teoría/Implementación de un Algoritmo Genético Básico
 
-## Preimplementación
+## Terminología básica
 
-## Pseudocódigo para un algoritmo genético básico
+Los algoritmos genéticos se basaron en los conceptos de evolución biológica, por lo que si está familiarizado con la terminología encontrada
+En la evolución, probablemente notarás una superposición en la terminología que se encuentra cuando se trabaja con algoritmos genéticos. El
+Las similitudes entre los campos se deben, por supuesto, a los algoritmos evolutivos y, más específicamente, a la genética.
+Los algoritmos son análogos a los procesos que se encuentran en la naturaleza.
 
-El pseudocódigo se describe a continuación:
+Es importante comprender primero parte del lenguaje y la terminología básicos utilizados. A continuación se muestra una lista de algunos de los más
+términos de referencia comunes.
 
-1. Se inicializa la primera generación.
-2. Comienza con la creación de la población inicial del algoritmo genético.
-3. Esta población se evalúa para encontrar los valores de aptitud de sus individuos.
-   Se ejecuta una verificación para decidir si se ha cumplido la condición de terminación del algoritmo genético.
-   De lo contrario, el algoritmo genético comienza a repetirse y la población pasa por su primera ronda de cruce.
-   y mutación antes de ser finalmente reevaluado. A partir de aquí, el cruce y la mutación se aplican continuamente hasta que
-   Se cumple la condición de terminación y el algoritmo genético termina:
-4. Selección de padres por torneo binario (50)
-5. Cruce de padres.
-6. Mutación
-7. Evaluación de la población
-8. Se repite con una nueva generación
+### Población
 
-Este pseudocódigo demuestra el proceso básico de un algoritmo genético.
+Esto es simplemente una colección de soluciones candidatas a las que se pueden aplicar operadores genéticos como la mutación y
+Se puede aplicar cruce.
 
-```java
-1: generación = 0;
-2: población[generación] = inicializarPoblación(tamaño de población);
-3: evaluarPoblación(población[generación]);
-3: Mientras isTerminationConditionMet() == false hacer
-4: padres = selectParents(población[generación]);
-5: población[generación+1] = cruce(padres);
-6: población[generación+1] = mutar(población[generación+1]);
-7: evaluarPoblación(población[generación]);
-8: generación++;
-9: Fin del bucle;
+### Candidato a solución
+
+Una posible solución a un problema dado.
+
+###Gene
+
+Los bloques de construcción indivisibles que forman el cromosoma. Clásicamente, un gen consta de 0 o 1, pero no
+necesariamente.
+
+###Cromosoma
+
+Un cromosoma es una cadena de genes. Un cromosoma define una solución candidata específica. Un típico cromosoma codificado en binario.
+puede contener algo como “01101011” u otro patrón determinado.
+
+### Mutación
+
+El proceso en el que los genes de una solución candidata se alteran aleatoriamente para crear nuevos rasgos.
+
+### Transversal
+
+El proceso en el que los cromosomas se combinan para crear una nueva solución candidata. Esto a veces se conoce como
+recombinación.
+
+### Selección
+
+Esta es la técnica de seleccionar soluciones candidatas para generar la próxima generación de soluciones.
+
+###Aptitud física
+
+Puntuación que mide en qué medida una solución candidata se adapta a un problema determinado.
+
+### Buscar espacios
+
+En informática, cuando se trata de problemas de optimización que tienen muchas soluciones candidatas que deben buscarse
+A través de ello, nos referimos a la colección de soluciones como un “espacio de búsqueda”. Cada punto específico dentro del espacio de búsqueda sirve
+como solución candidata para el problema planteado. Dentro de este espacio de búsqueda existe un concepto de distancia donde las soluciones
+que se colocan más cerca unos de otros son más
+Es probable que expresen rasgos similares a los de las soluciones ubicadas más separadas.
+
+Para comprender cómo se organizan estas distancias en el espacio de búsqueda, considere el siguiente ejemplo usando un binario
+representación genética:
+
 ```
+"101" está a sólo 1 diferencia de "111". Esto se debe a que solo se requiere 1 cambio (cambiar el 0 a 1) para
+transición de “101” a “111”. Esto significa que estas soluciones están separadas por solo 1 espacio en el espacio de búsqueda.
+```
+
+```
+“000”, por otro lado, está a tres diferencias de “111”. Esto le da una distancia de 3, colocando “000” 3 espacios
+desde “111” en el espacio de búsqueda.
+```
+
+### Parámetros
+
+Aunque todos los algoritmos genéticos se basan en los mismos conceptos, sus implementaciones específicas pueden variar bastante. Uno
+de las formas en que las implementaciones específicas pueden variar según sus parámetros. Un algoritmo genético básico tendrá al menos algunos
+par

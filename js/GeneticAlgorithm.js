@@ -113,7 +113,15 @@ class GeneticAlgorithm {
   }
 
 
-  corssover() {
+  /**
+   * Returns a new population, where parent selection and population crossing are applied.
+   *
+   * Generates a selection of parents per binary tournament (50%)
+   * To apply the crossover, a 70% crossover rate is used to see if it is applied.
+   * A crossover is created with the uniform crossover point of 50%.
+   *
+   */
+  selectParentsAndCorssover() {
 
     let initialPopulation = this.initialPopulation.population;
     let parent1;
@@ -121,10 +129,8 @@ class GeneticAlgorithm {
 
     const newPopulation = new Population(1, this.populationSize);
 
-
     // The first parent is selected by binary tournament (50)
     parent1 = this.parentSelectWithBinaryMethod(initialPopulation);
-
 
     // A random number between 0.1 and 1 is obtained to compare with the 70% crossover rate.
     let randomNumber = (this.getRandomInt(1, 100)) * 0.01;
@@ -137,50 +143,27 @@ class GeneticAlgorithm {
         // The second parent is selected by binary tournament (50)
         parent2 = this.parentSelectWithBinaryMethod(initialPopulation);
 
-/*        console.log('Parent 1 antes de : ')
-        console.log(parent1)
-
-        console.log('Parent 2 antes de : ')
-        console.log(parent2)*/
-
-        // Se genera un punto de cruce uniforme del 50%, en este método, cada gen de la descendencia tiene un cambio
-        // del 50% de provenir de su primer padre o de su segundo padre.
-
-        //console.log('here');
-       // console.log(parent1.chromosome);
-
-        for (let i = 0; i < parent1.chromosome.length/2; i++) {
-          //console.log(parent1.chromosome[i]);
+        // A uniform 50% crossover point is generated, in this method, each gene in the offspring has a change
+        // 50% of coming from your first parent or your second parent.
+        for (let i = 0; i < parent1.chromosome.length / 2; i++) {
           parent2.chromosome[i] = parent1.chromosome[i];
-
         }
-  /*      console.log('------')*/
 
-        //console.log(parent1)
-  /*      console.log('Parent 2 despues de : ')
-        console.log(parent2)*/
-
+        // The new child resulting from the crossing is added to the population
         newPopulation.setIndividualNew(i, parent2);
-
 
       } else {
 
-
-        //  console.log('no se genera y parent1 se queda igual')
-
-        // No se genera el parent 2 y se pasa el paren 1 tal cual a la nueva población
-       // newPopulation.setIndividualNew(i, parent1);
-
-        //console.log(parent1)
+        // Parent 2 is not generated and parent 1 is passed as is to the new population
         newPopulation.setIndividualNew(i, parent1);
       }
 
     }
 
     // The new fitness of the created population is calculated.
-    let newFitness =  newPopulation.calculatePopulationFitness();
-    //newPopulation.fitness = newFitness;
-    console.log(newPopulation);
+    let newFitness = newPopulation.calculatePopulationFitness();
+
+    return newPopulation;
 
   }
 

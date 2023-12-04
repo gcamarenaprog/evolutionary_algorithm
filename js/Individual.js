@@ -22,7 +22,7 @@
  */
 class Individual {
 
-  chromosome = [chromosomeSize]; // Gene array with defined size with values between 0 and 15
+  chromosome; // Gene array with defined size with values between 0 and 15
   chromosomeSize = chromosomeSize; // 16 genes have the chromosome
   fitness = -1; // Quality of adaptation of the individual
   targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish,
@@ -37,19 +37,17 @@ class Individual {
    */
   constructor(option, chromosome) {
 
+    //console.log(targetArray)
+
     if (option == 1 && chromosome == null) {
       this.chromosome = [];
       this.fitness = 0;
     } else {
-      let isEqual = this.targetArray.toString() === chromosome.toString();
-      if (isEqual) {
-        this.intializeIndividual(chromosome)
-      } else {
-        this.chromosome = chromosome;
-        this.fitness = this.calculateFitness(this.chromosome);
-      }
-
+      this.chromosome = this.intializeIndividual(this.targetArray);
+      this.fitness = this.calculateFitness(this.chromosome);
     }
+
+
   }
 
   /**
@@ -60,27 +58,44 @@ class Individual {
     let mixedGenes = chromosome.sort(function (a, b) {
       return 0.5 - Math.random()
     });
-    this.chromosome = mixedGenes;
-    this.fitness = this.calculateFitness(this.chromosome);
+    return mixedGenes;
   }
-
 
   /**
    * Calculates the fitness value of an individual, based on the number of correct genes compared to the target array
-   * @return {number}
+   * @return {}
    */
   calculateFitness(chromosome) {
 
     let correctGenes = 0;
     let fitnessNumber = 0;
-    for (let i = 0; i < chromosomeSize; i++) {
-      if (this.targetArray[i] === chromosome[i]) {
-        correctGenes++;
 
+    for (let i = 0; i < chromosome.length; i++) {
+      if (chromosome[i] == targetArray[i]) {
+        correctGenes++;
       }
     }
-    fitnessNumber = correctGenes / chromosomeSize;
+    fitnessNumber = correctGenes / this.chromosomeSize;
     return fitnessNumber;
+  }
+
+  /**
+   * Gets the gene from the given position within the chromosome
+   * @param {number} index
+   * @return {number}
+   */
+  getGeneChromosome(index) {
+    let chromosomeExtract = this.chromosome[index];
+    return chromosomeExtract;
+  }
+
+  /**
+   * Sets a gene to the given position within the chromosome
+   * @param {number} index
+   * @param {number} gene
+   */
+  setGeneChromosome(index, gene) {
+    this.chromosome[index] = gene;
   }
 
   /**
@@ -129,25 +144,6 @@ class Individual {
    */
   set setFitness(fitness) {
     this.fitness = fitness;
-  }
-
-  /**
-   * Gets the gene from the given position within the chromosome
-   * @param {number} index
-   * @return {number}
-   */
-  getGeneChromosome(index) {
-    let chromosomeExtract = this.chromosome[index];
-    return chromosomeExtract;
-  }
-
-  /**
-   * Sets a gene to the given position within the chromosome
-   * @param {number} index
-   * @param {number} gene
-   */
-  setGeneChromosome(index, gene) {
-    this.chromosome[index] = gene;
   }
 
 }

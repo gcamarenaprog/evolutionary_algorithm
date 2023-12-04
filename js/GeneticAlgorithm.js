@@ -42,6 +42,15 @@ class GeneticAlgorithm {
     this.eliteNumber = eliteNumber;
   }
 
+  /**
+   * Initialize a population
+   * @return {Population[]}
+   */
+  initPopulation(){
+    let objectInitPopulation = new Population(this.populationSize, 2);
+    return objectInitPopulation;
+  }
+
 
   /**
    * Final stop condition, if the fitness is equal to 1. This means that the combination is equal to the final
@@ -51,7 +60,6 @@ class GeneticAlgorithm {
    * @return {boolean}
    */
   finalCondition(population) {
-    console.log(population)
     for (let i = 0; i < population.size; i++) {
       if (population.population[i].fitness == 1) {
         return true;
@@ -89,9 +97,9 @@ class GeneticAlgorithm {
 
     // The fitnesses are compared and the parent with the highest fitness is chosen
     if (population[parentIndex1].fitness <= population[parentIndex2].fitness) {
-      return population[parentIndex2]
+      return population[parentIndex2];
     } else {
-      return population[parentIndex1]
+      return population[parentIndex1];
     }
   }
 
@@ -175,26 +183,5 @@ class GeneticAlgorithm {
   }
 
 
-
-
-
-
-  populationInitialization(populationSize) {
-    const population = new Population(populationSize, 0); // era 0
-    return population;
-  }
-
-
-  calculateIndividualFitness(individual) {
-    const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-    let correctGenes = 0;
-    let fitnessNumber = 0;
-    for (var i = 0; i < targetArray.length; i++) {
-      if (targetArray[i] == individual.getChromosme[i]) {
-        correctGenes++;
-      }
-    }
-    individual.fitnessNumber = correctGenes / 16;
-  }
 
 }

@@ -5,7 +5,12 @@ html, body {
 }
 
 
-#square {
+#squareTheBestSolution {
+    width: 180px;
+    height: 220px;
+    margin: 20px auto;
+}
+#squareTarget {
     width: 180px;
     height: 220px;
     margin: 20px auto;

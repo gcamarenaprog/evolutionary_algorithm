@@ -12,7 +12,6 @@
  * - populationSize
  * - mutationMug
  * - crossoverRate
- * - eliteNumber
  *
  * Methods
  * - finalCondition(population)
@@ -24,30 +23,28 @@ class GeneticAlgorithm {
   populationSize; // Size population
   mutationMug; // Mutation mug
   crossoverRate; // Crossover rate
-  eliteNumber; // Elite number
+  initialPopulation;
   targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish
-
 
   /**
    * Initialize the GeneticAlgorithm class with the parameters:
    * @param populationSize
    * @param mutationMug
    * @param crossoverRate
-   * @param eliteNumber
    */
-  constructor(populationSize, mutationMug, crossoverRate, eliteNumber) {
+  constructor(populationSize, mutationMug, crossoverRate) {
     this.populationSize = populationSize;
     this.mutationMug = mutationMug;
     this.crossoverRate = crossoverRate;
-    this.eliteNumber = eliteNumber;
   }
 
   /**
-   * Initialize a population
+   * Initialize a initial population
    * @return {Population[]}
    */
-  initPopulation(){
+  initPopulation() {
     let objectInitPopulation = new Population(2, this.populationSize);
+    this.initialPopulation = objectInitPopulation;
     return objectInitPopulation;
   }
 
@@ -69,7 +66,7 @@ class GeneticAlgorithm {
   }
 
   /**
-   * Selected from the father by Binary Tournament Method
+   * Selected from the father by Binary Tournament Method (50)
    *
    * In this, the GA randomly selects two individuals from the population with the same probability, subsequently the
    * fitness value of each of the selected individuals is calculated. The individual with the best fitness value will
@@ -85,7 +82,8 @@ class GeneticAlgorithm {
     let min = 0;
     let max = population.length;
 
-    // Two individuals are randomly selected from the population
+    // Two individuals are randomly selected from the population, the selection is based on a binary tournament, that
+    // is, it is selected randomly and with the same probability
     let parentIndex1 = this.getRandomInt(min, max);
     let parentIndex2 = this.getRandomInt(min, max);
 
@@ -115,10 +113,51 @@ class GeneticAlgorithm {
   }
 
 
+  corssover() {
+
+    let initialPopulation = this.initialPopulation.population;
+    let parent1;
+    let parent2;
+
+    const newPopulation = new Population(1, this.populationSize);
 
 
 
+    // The first parent is selected by binary tournament (50)
+    parent1 = this.parentSelectWithBinaryMethod(initialPopulation);
 
+
+    // A random number between 0.1 and 1 is obtained to compare with the 70% crossover rate.
+    let randomNumber = (this.getRandomInt(1, 100)) * 0.01;
+
+    console.log(newPopulation.population);
+    for(let i=0; i < newPopulation.population.length; i++) {
+
+      // The crossover is generated with a rate of 70%
+      if(randomNumber < this.crossoverRate){
+
+
+        // The second parent is selected by binary tournament (50)
+        parent2 = this.parentSelectWithBinaryMethod(initialPopulation);
+        //console.log(parent1)
+        // console.log(parent2)
+
+
+
+      }else{
+
+        //  console.log('no se genera y parent1 se queda igual')
+        newPopulation.setIndividualNew(i, parent2);
+      }
+
+    }
+
+    //console.log(newPopulation);
+
+
+
+    //console.log((randomNumber))
+  }
 
 
   /**
@@ -180,7 +219,6 @@ class GeneticAlgorithm {
     //console.log (newPopulation);
     return newPopulation;
   }
-
 
 
 }

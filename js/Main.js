@@ -35,7 +35,6 @@ const populationSize = 50;
 
 $(document).ready(function () {
 
-
   // Print the target array on Window
   windowTargetObjetive(targetArray);
 
@@ -49,9 +48,13 @@ $(document).ready(function () {
   console.log('Target array', targetArray);
 
 
-
+  /**
+   * populationSize = Size of initial population
+   * mutationMug = Mutation mug
+   * corssoverRate = Crossover rate 70%
+   */
   // Create GeneticAlgorithm object
-  const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 0.01, 0.95, 0)
+  const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 0.01, 0.70)
 
   // 1. Generation 1
   let generation = 1;
@@ -70,13 +73,14 @@ $(document).ready(function () {
     do {
 
       // Print fittest individual from population
-     // printTheBestSolution(generation, bestAdaptativeIndividual);
+      // printTheBestSolution(generation, bestAdaptativeIndividual);
 
-      // 4. Select parents
-      let parent1 = objectGeneticAlgorithm.parentSelectWithBinaryMethod(initialPopultation.population);
-      let parent2 = objectGeneticAlgorithm.parentSelectWithBinaryMethod(initialPopultation.population);
+      // 4. Select parent 1
+    //  let parent1 = objectGeneticAlgorithm.parentSelectWithBinaryMethod(initialPopultation.population);
+     // let parent2 = objectGeneticAlgorithm.parentSelectWithBinaryMethod(initialPopultation.population);
 
-      // 5. Apply crossover
+      // 4 and 5. Select parent and apply crossover
+      objectGeneticAlgorithm.corssover()
 
       // 6. Apply mutation
 

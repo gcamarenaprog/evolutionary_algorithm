@@ -42,9 +42,7 @@ class Population {
 
     if (option == 1) {
 
-      this.size = size;
-      this.population = [size];
-      for (let i = 0; i < size; i++) {
+      for (let i = 0; i < this.size; i++) {
         const individualObject = new Individual(1);
         this.population.push(individualObject);
       }
@@ -80,7 +78,6 @@ class Population {
    * @returns {*}
    */
   setIndividualNew(index, individual) {
-    console.log(individual)
     this.population[index] = individual;
   }
 

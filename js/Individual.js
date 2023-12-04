@@ -71,6 +71,7 @@ class Individual {
     let mixedGenes;
     let target = Array.from(this.targetArray);
 
+    // Shuffle the genes randomly
     mixedGenes = target.sort(function (a, b) {
       return 0.5 - Math.random()
     });

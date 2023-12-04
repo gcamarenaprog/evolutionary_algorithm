@@ -24,14 +24,15 @@
 class Population {
 
   population = []; // An array of individuals
-  size = 50; // Population size
+  size = 0; // Population size
   fitness = -1; // Quality of adaptation of the population
   targetArray; // Target array, change the order as you wish
 
   /**
    * Create a population with the given size, you have two options:<br>
-   * Option 1: (1, size) Generate an empty population<br>
-   * Option 2: Generate a population randomize<br>
+   * Option ('empty'): Generate an empty population<br>
+   * Option ('initial'): Generate a population randomize of 50 individuals<br>
+   * Option ('default'): Generate a population randomize<br>
    *
    * @param {string} option
    * @param {number} size
@@ -40,45 +41,58 @@ class Population {
   constructor(option, size) {
 
     this.targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-
     this.size = size;
 
+    // Generates an initial population of 50 individuals
     if(option === 'initial'){
+      this.size = 50;
+
       for (let i = 0; i < this.size; i++) {
-        const individualObject = new Individual('default', null, 16);
+
+        // Generate a new individual
+        const individualObject = new Individual('default');
+
+        // Verify that there are no repeated individuals in the population
         let isEqual = this.population.includes(individualObject, 0);
         while (isEqual) {
           isEqual = this.population.includes(individualObject, 0);
         }
+
+        // Add the created individual to the population
         this.population.push(individualObject);
       }
-      this.fitness = this.calculatePopulationFitness();
 
-      console.log(this.population)
+      // Calculates the fitness of the initial population created
+      this.fitness = this.calculatePopulationFitness();
     }
 
+    // Generate an empty population
+    if(option === 'empty'){
 
+    }
 
-/*    if (option == 1) {
-
-      for (let i = 0; i < this.size; i++) {
-        const individualObject = new Individual(1);
-        this.population.push(individualObject);
-      }
-    } else if (option == 2) {
+    // Generate an initial population of x individuals
+    if(option === 'default'){
 
       for (let i = 0; i < this.size; i++) {
-        const individualObject = new Individual(2, null);
+
+        // Generate a new individual
+        const individualObject = new Individual('default');
+
+        // Verify that there are no repeated individuals in the population
         let isEqual = this.population.includes(individualObject, 0);
         while (isEqual) {
           isEqual = this.population.includes(individualObject, 0);
         }
+
+        // Add the created individual to the population
         this.population.push(individualObject);
       }
-      this.fitness = this.calculatePopulationFitness();
 
-      console.log(this.population)
-    }*/
+      // Calculates the fitness of the initial population created
+      this.fitness = this.calculatePopulationFitness();
+    }
+
   }
 
   /**
@@ -89,7 +103,6 @@ class Population {
     for (let i = 1; i < this.size; i++) {
       totalFintness = totalFintness + this.population[i].fitness;
     }
-    this.fitness = totalFintness;
     return totalFintness;
   }
 

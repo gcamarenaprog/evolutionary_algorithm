@@ -36,7 +36,8 @@ const populationSize = 10;
 $(document).ready(function () {
 
 
-
+ let newObjectPopulation = new Population('default', 50)
+  console.log(newObjectPopulation)
 
 
 

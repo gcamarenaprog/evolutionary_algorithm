@@ -35,13 +35,8 @@ const populationSize = 50;
 
 $(document).ready(function () {
 
-  const newobj = new Population(populationSize,2)
-  console.log(newobj)
 
-
-
-
-/*  // Print the target array on Window
+  // Print the target array on Window
   windowTargetObjetive(targetArray);
 
   // Print the target array on Log
@@ -51,18 +46,18 @@ $(document).ready(function () {
   squareTargetArray(targetArray);
 
   console.log('--- Start of log ---');
-  console.log('Target array', targetArray);*/
+  console.log('Target array', targetArray);
 
 
 
-/*  // Create GeneticAlgorithm object
+  // Create GeneticAlgorithm object
   const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 0.01, 0.95, 0)
 
   // 1. Generation 1
   let generation = 1;
 
   // 2. Initialize population of 50 individuals
- // let initialPopultation = objectGeneticAlgorithm.initPopulation(50);
+  let initialPopultation = objectGeneticAlgorithm.initPopulation(50);
 
   // 3. Populate evaluation
   let bestAdaptativeIndividual = initialPopultation.getBestAdaptedIndividual();
@@ -73,18 +68,13 @@ $(document).ready(function () {
     // If the initial condition is not met in the first generation, it begins to repeat and the population goes through
     // the parent selection, crossover and mutation process
     do {
+
       // Print fittest individual from population
-      //printTheBestSolution(generation, bestAdaptativeIndividual);
-
-
-     // console.log(initialPopultation)
+     // printTheBestSolution(generation, bestAdaptativeIndividual);
 
       // 4. Select parents
       let parent1 = objectGeneticAlgorithm.parentSelectWithBinaryMethod(initialPopultation.population);
       let parent2 = objectGeneticAlgorithm.parentSelectWithBinaryMethod(initialPopultation.population);
-
-     // console.log(parent1);
-     // console.log(parent2);
 
       // 5. Apply crossover
 
@@ -100,7 +90,7 @@ $(document).ready(function () {
 
   } else {
     printTheBestSolution(generation, bestAdaptativeIndividual);
-  }*/
+  }
 
   /**
    * Print the data of the best solution.

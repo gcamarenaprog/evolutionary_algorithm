@@ -47,10 +47,9 @@ class GeneticAlgorithm {
    * @return {Population[]}
    */
   initPopulation(){
-    let objectInitPopulation = new Population(this.populationSize, 2);
+    let objectInitPopulation = new Population(2, this.populationSize);
     return objectInitPopulation;
   }
-
 
   /**
    * Final stop condition, if the fitness is equal to 1. This means that the combination is equal to the final

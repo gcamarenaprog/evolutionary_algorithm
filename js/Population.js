@@ -30,13 +30,13 @@ class Population {
 
   /**
    * Create a population with the given size, you have two options:<br>
-   * Option 1: Generate an empty population<br>
-   * Option 2: Generate a population randomize
+   * Option 1: (1, size) Generate an empty population<br>
+   * Option 2: Generate a population randomize<br>
    *
    * @param {number} size
    * @param {number} option
    */
-  constructor(size, option) {
+  constructor(option, size) {
 
     this.size = size;
 
@@ -48,24 +48,18 @@ class Population {
         const individualObject = new Individual(1);
         this.population.push(individualObject);
       }
-    } else { // It prevents the repetition of individuals in the population
+    } else if (option == 2) {
+
       for (let i = 0; i < this.size; i++) {
         let individualObject = new Individual(2, null);
         let isEqual = this.population.includes(individualObject, 0);
         while (isEqual) {
           isEqual = this.population.includes(individualObject, 0);
         }
-
         this.population.push(individualObject);
-        //let res = individualObject.intializeIndividual(this.targetArray);
-
-        //individualObject.chromosome = res;
-        //console.log(res)
-
-
       }
-
       this.fitness = this.calculatePopulationFitness();
+
     }
   }
 

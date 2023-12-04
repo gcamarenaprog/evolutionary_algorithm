@@ -9,73 +9,92 @@
  *
  *  Methods
  *  - constructor(option, chromosome)
- *  - intializeIndividual(chromosome)
+ *  - initializeChromosome(chromosome)
  *  - calculateFitness(chromosome)
  *  - get getChromosme()
- *  - set setChromosme(chromosome)
+ *  - setChromosme(chromosome)
  *  - get getChromosomeSize()
  *  - set setChromosmeSize(chromosomeSize)
  *  - get getFitness()
- *  - set setFitness(fitness)
+ *  - setFitness(fitness)
  *  - getGeneChromosome(index)
  *  - setGeneChromosome(index, gene)
  */
 class Individual {
 
   chromosome; // Gene array with defined size with values between 0 and 15
-  chromosomeSize = chromosomeSize; // 16 genes have the chromosome
-  fitness = -1; // Quality of adaptation of the individual
-  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish,
+  chromosomeSize; // Genes have the chromosome
+  fitness; // Quality of adaptation of the individual
+  targetArray; // Target array, change the order as you wish,
+  genesMatch;
 
   /**
    * Creates an individual created when we pass a certain chromosome to it, it has two options:<br>
-   * Option 1: (1, null) Generate an empty individual <br>
-   * Option 2: (2, null) Generate an individual with random chromosome<br>
-   * Option 3: (3, chromosome) Generate an individual with a specific chromosome<br>
+   * Option ('default'): Generate an empty individual <br>
+   * Option ('empty'): Generate an individual with random chromosome<br>
+   * Option ('specific', chromosome) Generate an individual with a specific chromosome<br>
    *
-   * @param chromosome {number[] || null}  Values between 0 and 15 of the genes
-   * @param option {number} Indicates what type of individual is initialized (1 .. 3)
+   * @param chromosome {number[] || null}  Array of values between 1 and 0 that represent the genes
+   * @param option {string} Indicates what type of individual is to be initialized
    */
   constructor(option, chromosome) {
-    if (option == 1 && chromosome == null) {
-      this.chromosome = [];
-      this.fitness = 0;
-    } else if (option == 2 && chromosome == null) {
-      this.chromosome = this.intializeIndividual(this.targetArray);
-      this.fitness = this.calculateFitness(this.chromosome);
-    } else  if(option == 3 && chromosome){
-      this.chromosome = this.intializeIndividual(chromosome);
-      this.fitness = this.calculateFitness(this.chromosome);
+
+    this.targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+    this.chromosomeSize = chromosomeSize;
+    this.chromosome = chromosome;
+
+    // Create an individual with random genes
+    if (option === 'default') {
+      this.chromosome = this.initializeChromosome();
+      this.fitness = this.calculateFitness();
     }
+
+    // Create an empty individual
+    if (option === 'empty') {
+      this.chromosome = [];
+      this.fitness = -1;
+    }
+
+    // Create an individual with a specific chromosome
+    if (option === 'specific') {
+      this.fitness = this.calculateFitness();
+    }
+
   }
 
   /**
-   * Resets an already created object
+   * Initializes the chromosome of an individual
    * @param chromosome {number[]}
    */
-  intializeIndividual(chromosome) {
-    let mixedGenes = chromosome.sort(function (a, b) {
+  initializeChromosome() {
+
+    let mixedGenes;
+    let target = Array.from(this.targetArray);
+
+    mixedGenes = target.sort(function (a, b) {
       return 0.5 - Math.random()
     });
+
     return mixedGenes;
   }
 
   /**
    * Calculates the fitness value of an individual, based on the number of correct genes compared to the target array
-   * @return {}
+   * @return {number}
    */
-  calculateFitness(chromosome) {
+  calculateFitness() {
 
     let correctGenes = 0;
     let fitnessNumber = 0;
+    let target = Array.from(this.targetArray);
 
-    for (let i = 0; i < chromosome.length; i++) {
-      if (chromosome[i] == targetArray[i]) {
+    for (let i = 0; i < target.length; i++) {
+      if (this.chromosome[i] === target[i]) {
         correctGenes++;
       }
     }
     fitnessNumber = correctGenes / this.chromosomeSize;
-    this.fitness = fitnessNumber;
+    this.genesMatch = correctGenes;
     return fitnessNumber;
   }
 
@@ -84,7 +103,7 @@ class Individual {
    * @param {number} index
    * @return {number}
    */
-   getGeneChromosome(index) {
+  getGeneChromosome(index) {
     let chromosomeExtract = this.chromosome[index];
     return chromosomeExtract;
   }
@@ -107,11 +126,12 @@ class Individual {
   }
 
   /**
-   * Setter chromosome
+   * Set chromosome
    * @param {number[]} chromosome
    */
-  set setChromosme(chromosome) {
+  setChromosme(chromosome) {
     this.chromosome = chromosome;
+    this.setFitness();
   }
 
   /**
@@ -142,8 +162,8 @@ class Individual {
    * Setter fitness
    * @param {number} fitness
    */
-  set setFitness(fitness) {
-    this.fitness = fitness;
+  setFitness() {
+    this.fitness = this.calculateFitness();
   }
 
 }

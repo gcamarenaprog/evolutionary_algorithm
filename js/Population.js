@@ -24,23 +24,42 @@
 class Population {
 
   population = []; // An array of individuals
-  size = 0; // Population size
+  size = 50; // Population size
   fitness = -1; // Quality of adaptation of the population
-  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish
+  targetArray; // Target array, change the order as you wish
 
   /**
    * Create a population with the given size, you have two options:<br>
    * Option 1: (1, size) Generate an empty population<br>
    * Option 2: Generate a population randomize<br>
    *
+   * @param {string} option
    * @param {number} size
-   * @param {number} option
+   * @param {number} chromosome
    */
   constructor(option, size) {
 
+    this.targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+
     this.size = size;
 
-    if (option == 1) {
+    if(option === 'initial'){
+      for (let i = 0; i < this.size; i++) {
+        const individualObject = new Individual('default', null, 16);
+        let isEqual = this.population.includes(individualObject, 0);
+        while (isEqual) {
+          isEqual = this.population.includes(individualObject, 0);
+        }
+        this.population.push(individualObject);
+      }
+      this.fitness = this.calculatePopulationFitness();
+
+      console.log(this.population)
+    }
+
+
+
+/*    if (option == 1) {
 
       for (let i = 0; i < this.size; i++) {
         const individualObject = new Individual(1);
@@ -49,7 +68,7 @@ class Population {
     } else if (option == 2) {
 
       for (let i = 0; i < this.size; i++) {
-        let individualObject = new Individual(2, null);
+        const individualObject = new Individual(2, null);
         let isEqual = this.population.includes(individualObject, 0);
         while (isEqual) {
           isEqual = this.population.includes(individualObject, 0);
@@ -57,7 +76,9 @@ class Population {
         this.population.push(individualObject);
       }
       this.fitness = this.calculatePopulationFitness();
-    }
+
+      console.log(this.population)
+    }*/
   }
 
   /**

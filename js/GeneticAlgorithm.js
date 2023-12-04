@@ -21,6 +21,7 @@
 class GeneticAlgorithm {
 
   populationSize; // Size population
+  initialPopulationSize = 50;
   mutationMug; // Mutation mug
   crossoverRate; // Crossover rate
   initialPopulation;
@@ -42,10 +43,11 @@ class GeneticAlgorithm {
    * Initialize a initial population
    * @return {Population[]}
    */
-  initPopulation() {
-    let objectInitPopulation = new Population(2, this.populationSize);
+  initPopulation(populationType, populationSize) {
+    let size = this.initialPopulationSize;
+    let objectInitPopulation = new Population('initial', '50');
     this.initialPopulation = objectInitPopulation;
-    return objectInitPopulation;
+    return this.initialPopulation;
   }
 
   /**

@@ -35,6 +35,13 @@ const populationSize = 10;
 
 $(document).ready(function () {
 
+
+
+
+
+
+
+
   // Print the target array on Window
   windowTargetObjetive(targetArray);
 
@@ -56,11 +63,11 @@ $(document).ready(function () {
     // Create GeneticAlgorithm object
   const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 1, 0.70)
 
-  // 1. Generation 1
+/*  // 1. Generation 1
   let generation = 1;
 
   // 2. Initialize population of 50 individuals
-  let initialPopultation = objectGeneticAlgorithm.initPopulation(10);
+  //let initialPopultation = objectGeneticAlgorithm.initPopulation('initial',50, 16);
 
 
 
@@ -95,11 +102,11 @@ $(document).ready(function () {
 
       // 7. Evaluate population
      // let bestAdaptativeIndividualNewPopulation = newPopulation.getBestAdaptedIndividual();
-     /* bestFitness = bestAdaptativeIndividualNewPopulation.fitness;
+     /!* bestFitness = bestAdaptativeIndividualNewPopulation.fitness;
 
      if(bestFitness == undefined){
         bestFitness = 0;
-      }*/
+      }*!/
 
 
 
@@ -116,11 +123,11 @@ $(document).ready(function () {
   }
 
 
-  /**
+  /!**
    * Print the data of the best solution.
    * @param generation
    * @param bestAdaptativeIndividual
-   */
+   *!/
   function printTheBestSolution(generation, bestAdaptativeIndividual, bestFitness) {
     // Print the best solution of first generation
     squareTheBestSolution(bestAdaptativeIndividual.chromosome)
@@ -129,7 +136,7 @@ $(document).ready(function () {
 
     // Table generation data test
     insertIntoTableGenerations(generation, bestAdaptativeIndividual.chromosome, bestFitness);
-  }
+  }*/
 
 
   //population.getBestAdaptedIndividual;

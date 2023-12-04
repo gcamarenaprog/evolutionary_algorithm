@@ -121,7 +121,7 @@ class GeneticAlgorithm {
    *
    * Generates a selection of parents per binary tournament (50%)
    * To apply the crossover, a 70% crossover rate is used to see if it is applied.
-   * A crossover is created with the uniform crossover point of 50%.
+   * A crossover is created with the uniform crossover point of 50% or random method.
    *
    */
   selectParentsAndCorssover() {
@@ -129,6 +129,13 @@ class GeneticAlgorithm {
     let initialPopulation = this.initialPopulation.population;
     let parent1;
     let parent2;
+
+    for(let i= 0; i<initialPopulation.length; i++){
+      console.log(initialPopulation[i].chromosome)
+      console.log(initialPopulation[i].fitness)
+      console.log(initialPopulation[i].targetArray)
+    }
+
 
     const newPopulation = new Population(1, this.populationSize);
 
@@ -148,24 +155,26 @@ class GeneticAlgorithm {
 
         // A uniform 50% crossover point is generated, in this method, each gene in the offspring has a change
         // 50% of coming from your first parent or your second parent.
-/*        let rand = this.getRandomInt(0,15);
-        for (let i = 0; i < parent.chromosome.length; i++) {
+        let rand = this.getRandomInt(0,15);
+         for (let i = 0; i < parent1.chromosome.length; i++) {
+         parent2.chromosome[i] = parent1.chromosome[i];
+         }
+
+        // The cross stitch is done randomly
+/*        let rand = this.getRandomInt(0, 15);
+        for (let i = 0; i < rand; i++) {
           parent2.chromosome[i] = parent1.chromosome[i];
         }*/
 
-        // The cross stitch is done randomly
-        let rand = this.getRandomInt(0,15);
-        for (let i = 0; i < rand; i++) {
-          parent2.chromosome[i] = parent1.chromosome[i];
-        }
-
         // The new child resulting from the crossing is added to the population
         newPopulation.setIndividualNew(i, parent2);
+        newPopulation.population[i].calculateFitness(newPopulation.population[i].chromosome);
 
       } else {
 
         // Parent 2 is not generated and parent 1 is passed as is to the new population
         newPopulation.setIndividualNew(i, parent1);
+        newPopulation.population[i].calculateFitness(newPopulation.population[i].chromosome);
       }
 
     }
@@ -173,72 +182,55 @@ class GeneticAlgorithm {
     // The new fitness of the created population is calculated.
     let res = newPopulation.calculatePopulationFitness();
 
-    newPopulation.fitness = res;
-
     return newPopulation;
 
   }
 
+  mutation(newPopulation) {
 
-  /**
-   * Retorna la nueva población con el cruzamiento aplicado
-   * @param population
-   * @return {Population}
-   */
-  crossing(population) {
+    const newPopulation2 = new Population(1, this.populationSize);
 
+    //console.log(newPopulation);
 
-    // console.log(population)
-    // Se crea una nueva población
-    const newPopulation = new Population(population.getPopulationSize, 1); // Era 1
-    let parent1 = [];
-    let parent2 = [];
-    let descendant = [];
+    for (let i = 0; i < newPopulation.population.length; i++) {
+    //   console.log(this.newPopulation.population[i].chromosome);
 
-    // Recorrer la poblacion actual
-    for (let i = 0; i < population.getPopulationSize; i++) {
-
-      // Encuentra el primer padre
-      parent1 = population.getBestAdaptedIndividual;
-      // console.log(parent1)
-
-      // Aplica el cruzamiento a los individuos
-      if (this.crossoverRate > Math.random() && i >= this.eliteNumber) {
-
-        // Encuentra el segundo padre
-        parent2 = this.parentSelectWithBinaryMethod(population);
-
-        // Inicia la descendencia
-        descendant = new Individual(1, parent1.chromosome);
-
-        // console.log(Math.random());
-
-        // Recorre el genoma
-        for (let genIndex = 0; genIndex < parent1.getChromosomeSize; genIndex++) {
-
-          //console.log(descendant.chromosome[genIndex]);
-          // Usa la mitad de los genes de ambos padres
-          if (0.5 > Math.random()) {
-            // console.log('here1')
-            descendant.setChromosome(genIndex, parent1.getGeneChromosome(genIndex));
-          } else {
-            //console.log('here2')
-            descendant.setChromosome(genIndex, parent2.getGeneChromosome(genIndex));
-          }
-
-        }
-        //console.log('------------------')
-        // Añade la descendencia a la nueva población
-        newPopulation.setIndividualNew(i, descendant);
-
-      } else {
-        newPopulation.setIndividualNew(i, parent1);
+      for(let j =0; j < newPopulation.population[i].chromosome.length; j++){
+        newPopulation.population[i].chromosome = this.shuffle(newPopulation.population[i].chromosome);
       }
+     // console.log(this.newPopulation.population[i].chromosome);
+
+      newPopulation2.setIndividualNew(i, newPopulation.population[i]);
     }
 
-    //console.log (newPopulation);
-    return newPopulation;
+  //  console.log(this.newPopulation);
+
+    // The new fitness of the created population is calculated.
+    let res = newPopulation2.calculatePopulationFitness();
+
+    return newPopulation2;
+  }
+
+  shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // Mientras queden elementos a mezclar...
+    while (0 !== currentIndex) {
+
+      // Seleccionar un elemento sin mezclar...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // E intercambiarlo con el elemento actual
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
 
 
 }
+
+

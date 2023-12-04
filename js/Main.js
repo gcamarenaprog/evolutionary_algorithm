@@ -27,7 +27,7 @@ const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 const chromosomeSize = 16;
 
 // Maximum generations
-const maxGenerations = 10;
+const maxGenerations = 1;
 
 // Population size
 const populationSize = 10;
@@ -54,13 +54,15 @@ $(document).ready(function () {
    * corssoverRate = Crossover rate 70%
    */
     // Create GeneticAlgorithm object
-  const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 0.01, 0.70)
+  const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 1, 0.70)
 
   // 1. Generation 1
   let generation = 1;
 
   // 2. Initialize population of 50 individuals
-  let initialPopultation = objectGeneticAlgorithm.initPopulation(50);
+  let initialPopultation = objectGeneticAlgorithm.initPopulation(10);
+
+
 
   // 3. Initial populate evaluation
   let bestAdaptativeIndividual = initialPopultation.getBestAdaptedIndividual();
@@ -68,12 +70,12 @@ $(document).ready(function () {
   if (bestAdaptativeIndividual.fitness == 1) {
 
     // Print fittest individual from population
-    printTheBestSolution(generation, bestAdaptativeIndividual);
+  //  printTheBestSolution(generation, bestAdaptativeIndividual);
 
   } else {
 
     // Print fittest individual from population
-    printTheBestSolution(generation, bestAdaptativeIndividual, bestAdaptativeIndividual.fitness);
+   // printTheBestSolution(generation, bestAdaptativeIndividual, bestAdaptativeIndividual.fitness);
 
     let bestFitness;
     let terminate;
@@ -82,24 +84,30 @@ $(document).ready(function () {
     do {
 
       // 4 and 5. Select parent and apply crossover
-      let newPopulation = objectGeneticAlgorithm.selectParentsAndCorssover();
+     // let newPopulation = objectGeneticAlgorithm.selectParentsAndCorssover();
+
+      //console.log(newPopulation);
 
       // 6. Apply mutation
+     // let newPopulationMutation = objectGeneticAlgorithm.mutation(newPopulation);
 
+      //console.log(newPopulationMutation);
 
       // 7. Evaluate population
-      let bestAdaptativeIndividualNewPopulation = newPopulation.getBestAdaptedIndividual();
-      bestFitness = bestAdaptativeIndividualNewPopulation.fitness;
+     // let bestAdaptativeIndividualNewPopulation = newPopulation.getBestAdaptedIndividual();
+     /* bestFitness = bestAdaptativeIndividualNewPopulation.fitness;
 
-      if(bestFitness == undefined){
+     if(bestFitness == undefined){
         bestFitness = 0;
-      }
+      }*/
+
+
 
       // 8. Increment the current generation
       generation++;
 
       // Print fittest individual from population
-      printTheBestSolution(generation, bestAdaptativeIndividual, bestFitness);
+     // printTheBestSolution(generation, bestAdaptativeIndividual, bestFitness);
 
 
     } while (generation <= maxGenerations);
@@ -126,35 +134,7 @@ $(document).ready(function () {
 
   //population.getBestAdaptedIndividual;
 
-  /*   // Inicializamos la población de individuos
-   population = newGeneticAlgorithmObject.populationInitialization(100);*/
 
-  // Evaluamos la poblacion
-  //population.getBestAdaptedIndividual;
-
-  // Número de generación
-  // let generation = 1;*/
-
-
-  /*
-   while (newGeneticAlgorithmObject.finalCondition(population) == false) {
-
-   // Mostrar el más adaptado de la población
-   console.log('Mejor solución: ' + population.getBestAdaptedIndividual);
-
-   // Aplicamos el cruzamiento
-   population = newGeneticAlgorithmObject.crossing(population);
-
-   // Aplicamos la mutación
-
-   // Evaluamos la población
-   population.getBestAdaptedIndividual;
-
-   // Incrementamos la generación
-   generation++;
-
-
-   }*/
 
   /*  console.log('----------------------------------------------------------');
    console.log('Solución encontrada en: ' + generation + ' generaciones');

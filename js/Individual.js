@@ -84,7 +84,7 @@ class Individual {
    * @param {number} index
    * @return {number}
    */
-  getGeneChromosome(index) {
+   getGeneChromosome(index) {
     let chromosomeExtract = this.chromosome[index];
     return chromosomeExtract;
   }

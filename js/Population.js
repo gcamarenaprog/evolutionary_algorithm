@@ -78,6 +78,7 @@ class Population {
    * @returns {*}
    */
   setIndividualNew(index, individual) {
+    this.calculatePopulationFitness()
     this.population[index] = individual;
   }
 

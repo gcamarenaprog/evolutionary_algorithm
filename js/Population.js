@@ -57,7 +57,6 @@ class Population {
         this.population.push(individualObject);
       }
       this.fitness = this.calculatePopulationFitness();
-
     }
   }
 
@@ -69,6 +68,7 @@ class Population {
     for (let i = 1; i < this.size; i++) {
       totalFintness = totalFintness + this.population[i].fitness;
     }
+    this.fitness = totalFintness;
     return totalFintness;
   }
 

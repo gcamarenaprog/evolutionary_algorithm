@@ -122,7 +122,6 @@ class GeneticAlgorithm {
     const newPopulation = new Population(1, this.populationSize);
 
 
-
     // The first parent is selected by binary tournament (50)
     parent1 = this.parentSelectWithBinaryMethod(initialPopulation);
 
@@ -130,33 +129,59 @@ class GeneticAlgorithm {
     // A random number between 0.1 and 1 is obtained to compare with the 70% crossover rate.
     let randomNumber = (this.getRandomInt(1, 100)) * 0.01;
 
-    console.log(newPopulation.population);
-    for(let i=0; i < newPopulation.population.length; i++) {
+    for (let i = 0; i < newPopulation.population.length; i++) {
 
-      // The crossover is generated with a rate of 70%
-      if(randomNumber < this.crossoverRate){
-
+      // The crossover is generated with a rate of 70%. Apply crossover to this individual?
+      if (randomNumber < this.crossoverRate) {
 
         // The second parent is selected by binary tournament (50)
         parent2 = this.parentSelectWithBinaryMethod(initialPopulation);
+
+/*        console.log('Parent 1 antes de : ')
+        console.log(parent1)
+
+        console.log('Parent 2 antes de : ')
+        console.log(parent2)*/
+
+        // Se genera un punto de cruce uniforme del 50%, en este método, cada gen de la descendencia tiene un cambio
+        // del 50% de provenir de su primer padre o de su segundo padre.
+
+        //console.log('here');
+       // console.log(parent1.chromosome);
+
+        for (let i = 0; i < parent1.chromosome.length/2; i++) {
+          //console.log(parent1.chromosome[i]);
+          parent2.chromosome[i] = parent1.chromosome[i];
+
+        }
+  /*      console.log('------')*/
+
         //console.log(parent1)
-        // console.log(parent2)
+  /*      console.log('Parent 2 despues de : ')
+        console.log(parent2)*/
+
+        newPopulation.setIndividualNew(i, parent2);
 
 
+      } else {
 
-      }else{
 
         //  console.log('no se genera y parent1 se queda igual')
-        newPopulation.setIndividualNew(i, parent2);
+
+        // No se genera el parent 2 y se pasa el paren 1 tal cual a la nueva población
+       // newPopulation.setIndividualNew(i, parent1);
+
+        //console.log(parent1)
+        newPopulation.setIndividualNew(i, parent1);
       }
 
     }
 
-    //console.log(newPopulation);
+    // The new fitness of the created population is calculated.
+    let newFitness =  newPopulation.calculatePopulationFitness();
+    //newPopulation.fitness = newFitness;
+    console.log(newPopulation);
 
-
-
-    //console.log((randomNumber))
   }
 
 

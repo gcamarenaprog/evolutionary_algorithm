@@ -29,25 +29,24 @@ class Individual {
 
   /**
    * Creates an individual created when we pass a certain chromosome to it, it has two options:<br>
-   * Option 1: Generate an empty individual<br>
-   * Option 2: Generate an individual with a specific chromosome
+   * Option 1: (1, null) Generate an empty individual <br>
+   * Option 2: (2, null) Generate an individual with random chromosome<br>
+   * Option 3: (3, chromosome) Generate an individual with a specific chromosome<br>
    *
-   * @param chromosome {number[]}  Values between 0 and 15 of the genes
-   * @param option {number} Indicates what type of individual is initialized (1 or 2)
+   * @param chromosome {number[] || null}  Values between 0 and 15 of the genes
+   * @param option {number} Indicates what type of individual is initialized (1 .. 3)
    */
   constructor(option, chromosome) {
-
-    //console.log(targetArray)
-
     if (option == 1 && chromosome == null) {
       this.chromosome = [];
       this.fitness = 0;
-    } else {
+    } else if (option == 2 && chromosome == null) {
       this.chromosome = this.intializeIndividual(this.targetArray);
       this.fitness = this.calculateFitness(this.chromosome);
+    } else  if(option == 3 && chromosome){
+      this.chromosome = this.intializeIndividual(chromosome);
+      this.fitness = this.calculateFitness(this.chromosome);
     }
-
-
   }
 
   /**

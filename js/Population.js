@@ -50,15 +50,21 @@ class Population {
       }
     } else { // It prevents the repetition of individuals in the population
       for (let i = 0; i < this.size; i++) {
-        let individualObject = new Individual(2, this.targetArray);
+        let individualObject = new Individual(2, null);
         let isEqual = this.population.includes(individualObject, 0);
         while (isEqual) {
           isEqual = this.population.includes(individualObject, 0);
         }
+
         this.population.push(individualObject);
-        individualObject.intializeIndividual(this.targetArray);
+        //let res = individualObject.intializeIndividual(this.targetArray);
+
+        //individualObject.chromosome = res;
+        //console.log(res)
+
 
       }
+
       this.fitness = this.calculatePopulationFitness();
     }
   }

@@ -22,6 +22,7 @@
 
 // Target array, change the order as you wish, please re declare values into of the classes
 const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+
 // Chromosome size, please re declare values into of the classes
 const chromosomeSize = 16;
 
@@ -34,17 +35,8 @@ const populationSize = 50;
 
 $(document).ready(function () {
 
-  const d = new Individual(2,null)
-  console.log(d)
-
-  const d2 = new Individual(2,null)
-  console.log(d2)
-
-  //const i = new Individual(2,targetArray)
-  //console.log(i)
-
-/*  const newobj = new Population(populationSize,2)
-  console.log(newobj)*/
+  const newobj = new Population(populationSize,2)
+  console.log(newobj)
 
 
 

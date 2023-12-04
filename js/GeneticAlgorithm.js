@@ -56,10 +56,13 @@ class GeneticAlgorithm {
    * @return {boolean}
    */
   finalCondition(population) {
-    for (let i = 0; i < population.size; i++) {
+    //console.log(population);
+    for (let i = 0; i < population.population.length; i++) {
       if (population.population[i].fitness == 1) {
-        return true;
+        console.log('true');
+        //return true;
       } else {
+        //console.log('false');
         return false;
       }
     }
@@ -145,7 +148,14 @@ class GeneticAlgorithm {
 
         // A uniform 50% crossover point is generated, in this method, each gene in the offspring has a change
         // 50% of coming from your first parent or your second parent.
-        for (let i = 0; i < parent1.chromosome.length / 2; i++) {
+/*        let rand = this.getRandomInt(0,15);
+        for (let i = 0; i < parent.chromosome.length; i++) {
+          parent2.chromosome[i] = parent1.chromosome[i];
+        }*/
+
+        // The cross stitch is done randomly
+        let rand = this.getRandomInt(0,15);
+        for (let i = 0; i < rand; i++) {
           parent2.chromosome[i] = parent1.chromosome[i];
         }
 
@@ -161,7 +171,9 @@ class GeneticAlgorithm {
     }
 
     // The new fitness of the created population is calculated.
-    let newFitness = newPopulation.calculatePopulationFitness();
+    let res = newPopulation.calculatePopulationFitness();
+
+    newPopulation.fitness = res;
 
     return newPopulation;
 

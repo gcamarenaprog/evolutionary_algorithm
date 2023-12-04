@@ -75,6 +75,7 @@ class Individual {
       }
     }
     fitnessNumber = correctGenes / this.chromosomeSize;
+    this.fitness = fitnessNumber;
     return fitnessNumber;
   }
 

@@ -21,11 +21,10 @@
 class GeneticAlgorithm {
 
   populationSize; // Size population
-  initialPopulationSize = 50;
   mutationMug; // Mutation mug
   crossoverRate; // Crossover rate
   initialPopulation;
-  targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]; // Target array, change the order as you wish
+  targetArray; // Target array, change the order as you wish
 
   /**
    * Initialize the GeneticAlgorithm class with the parameters:
@@ -34,6 +33,8 @@ class GeneticAlgorithm {
    * @param crossoverRate
    */
   constructor(populationSize, mutationMug, crossoverRate) {
+
+    this.targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
     this.populationSize = populationSize;
     this.mutationMug = mutationMug;
     this.crossoverRate = crossoverRate;
@@ -44,7 +45,6 @@ class GeneticAlgorithm {
    * @return {Population[]}
    */
   initPopulation(populationType, populationSize) {
-    let size = this.initialPopulationSize;
     let objectInitPopulation = new Population('initial', '50');
     this.initialPopulation = objectInitPopulation;
     return this.initialPopulation;
@@ -85,7 +85,7 @@ class GeneticAlgorithm {
     let parent1 = [];
     let parent2 = [];
     let min = 0;
-    let max = population.length;
+    let max = population.population.length;
 
     // Two individuals are randomly selected from the population, the selection is based on a binary tournament, that
     // is, it is selected randomly and with the same probability
@@ -98,10 +98,10 @@ class GeneticAlgorithm {
     }
 
     // The fitnesses are compared and the parent with the highest fitness is chosen
-    if (population[parentIndex1].fitness <= population[parentIndex2].fitness) {
-      return population[parentIndex2];
+    if (population.population[parentIndex1].fitness <= population.population[parentIndex2].fitness) {
+      return population.population[parentIndex2];
     } else {
-      return population[parentIndex1];
+      return population.population[parentIndex1];
     }
   }
 
@@ -128,61 +128,67 @@ class GeneticAlgorithm {
    */
   selectParentsAndCorssover() {
 
-    let initialPopulation = this.initialPopulation.population;
     let parent1;
     let parent2;
 
-    for(let i= 0; i<initialPopulation.length; i++){
-      console.log(initialPopulation[i].chromosome)
-      console.log(initialPopulation[i].fitness)
-      console.log(initialPopulation[i].targetArray)
-    }
+    const newPopulation = new Population();
 
-
-    const newPopulation = new Population(1, this.populationSize);
+    let copy1 = new Population();
+    copy1 = Object.assign({}, this.initPopulation(), 1);
 
     // The first parent is selected by binary tournament (50)
-    parent1 = this.parentSelectWithBinaryMethod(initialPopulation);
+    parent1 = this.parentSelectWithBinaryMethod(copy1);
 
     // A random number between 0.1 and 1 is obtained to compare with the 70% crossover rate.
     let randomNumber = (this.getRandomInt(1, 100)) * 0.01;
 
-    for (let i = 0; i < newPopulation.population.length; i++) {
+    console.log(randomNumber)
+
+    for (let i = 0; i < this.populationSize; i++) {
 
       // The crossover is generated with a rate of 70%. Apply crossover to this individual?
       if (randomNumber < this.crossoverRate) {
 
         // The second parent is selected by binary tournament (50)
-        parent2 = this.parentSelectWithBinaryMethod(initialPopulation);
+        parent2 = this.parentSelectWithBinaryMethod(copy1);
 
         // A uniform 50% crossover point is generated, in this method, each gene in the offspring has a change
         // 50% of coming from your first parent or your second parent.
-        let rand = this.getRandomInt(0,15);
-         for (let i = 0; i < parent1.chromosome.length; i++) {
-         parent2.chromosome[i] = parent1.chromosome[i];
-         }
+        let rand = this.getRandomInt(0, 15);
+
+        for (let i = 0; i < parent1.chromosome.length/2; i++) {
+          parent2.chromosome[i] = parent1.chromosome[i];
+        }
+
+
 
         // The cross stitch is done randomly
-/*        let rand = this.getRandomInt(0, 15);
-        for (let i = 0; i < rand; i++) {
-          parent2.chromosome[i] = parent1.chromosome[i];
-        }*/
+        /*        let rand = this.getRandomInt(0, 15);
+         for (let i = 0; i < rand; i++) {
+         parent2.chromosome[i] = parent1.chromosome[i];
+         }*/
 
+
+       // console.error(parent2)
         // The new child resulting from the crossing is added to the population
         newPopulation.setIndividualNew(i, parent2);
-        newPopulation.population[i].calculateFitness(newPopulation.population[i].chromosome);
+       // console.error(newPopulation.population[i])
+
+        //newPopulation.population[i].calculateFitness(newPopulation.population[i].chromosome);
 
       } else {
 
         // Parent 2 is not generated and parent 1 is passed as is to the new population
         newPopulation.setIndividualNew(i, parent1);
-        newPopulation.population[i].calculateFitness(newPopulation.population[i].chromosome);
+        //newPopulation.population[i].calculateFitness(newPopulation.population[i].chromosome);
       }
 
     }
 
     // The new fitness of the created population is calculated.
-    let res = newPopulation.calculatePopulationFitness();
+   // newPopulation.calculatePopulationFitness();
+
+    // console.log(newPopulation)
 
     return newPopulation;
 
@@ -195,17 +201,17 @@ class GeneticAlgorithm {
     //console.log(newPopulation);
 
     for (let i = 0; i < newPopulation.population.length; i++) {
-    //   console.log(this.newPopulation.population[i].chromosome);
+      //   console.log(this.newPopulation.population[i].chromosome);
 
-      for(let j =0; j < newPopulation.population[i].chromosome.length; j++){
+      for (let j = 0; j < newPopulation.population[i].chromosome.length; j++) {
         newPopulation.population[i].chromosome = this.shuffle(newPopulation.population[i].chromosome);
       }
-     // console.log(this.newPopulation.population[i].chromosome);
+      // console.log(this.newPopulation.population[i].chromosome);
 
       newPopulation2.setIndividualNew(i, newPopulation.population[i]);
     }
 
-  //  console.log(this.newPopulation);
+    //  console.log(this.newPopulation);
 
     // The new fitness of the created population is calculated.
     let res = newPopulation2.calculatePopulationFitness();

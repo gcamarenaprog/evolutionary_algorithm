@@ -27,33 +27,56 @@ const targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
 const chromosomeSize = 16;
 
 // Maximum generations
-const maxGenerations = 1;
+const maxGenerations = 2;
 
 // Population size
-const populationSize = 10;
+const populationSize = 5;
 
 
 $(document).ready(function () {
 
 
- let newObjectPopulation = new Population('default', 50)
-  console.log(newObjectPopulation)
+  console.log('--- Start of log ---');
+
+
+  const newObjectIndividual = new Individual('default', targetArray, chromosomeSize)
+  console.log(newObjectIndividual);
 
 
 
+  /*  let newIndividual = new Individual('default')
+
+   let newObjectPopulation = new Population('default', 50)
+   console.log(newObjectPopulation)
+
+   const targetArray1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+
+   newObjectPopulation.population[0].setChromosme(targetArray1);
+
+
+   /!*  let copy = new Population('default', 50)
+   copy = Object.assign(newObjectPopulation, copy);*!/
+
+   //newObjectPopulation.setIndividualNew(0, newIndividual)
+
+   console.log(newObjectPopulation)
+   newObjectPopulation.calculatePopulationFitness();
+
+
+   console.log(newObjectPopulation)*/
 
 
   // Print the target array on Window
-  windowTargetObjetive(targetArray);
+  // windowTargetObjetive(targetArray);
 
   // Print the target array on Log
-  writeToLog('Target array', targetArray, 'target');
+  // writeToLog('Target array', targetArray, 'target');
 
   // Square the target array
-  squareTargetArray(targetArray);
+  // squareTargetArray(targetArray);
 
-  console.log('--- Start of log ---');
-  console.log('Target array', targetArray);
+  //console.log('--- Start of log ---');
+  // console.log('Target array', targetArray);
 
 
   /**
@@ -62,86 +85,85 @@ $(document).ready(function () {
    * corssoverRate = Crossover rate 70%
    */
     // Create GeneticAlgorithm object
-  const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 1, 0.70)
+    //const objectGeneticAlgorithm = new GeneticAlgorithm(populationSize, 1, 0.70)
 
-/*  // 1. Generation 1
-  let generation = 1;
+    // 1. Generation 1
+    //let generation = 1;
 
-  // 2. Initialize population of 50 individuals
-  //let initialPopultation = objectGeneticAlgorithm.initPopulation('initial',50, 16);
+    // 2. Initialize population of 50 individuals
+    //let initialPopultation = objectGeneticAlgorithm.initPopulation('initial', 50, 16);
 
+    // 3. Initial populate evaluation
+    // let bestAdaptativeIndividual = initialPopultation.getBestAdaptedIndividual();
 
-
-  // 3. Initial populate evaluation
-  let bestAdaptativeIndividual = initialPopultation.getBestAdaptedIndividual();
-
-  if (bestAdaptativeIndividual.fitness == 1) {
+    //if (bestAdaptativeIndividual.fitness == 1) {
 
     // Print fittest individual from population
-  //  printTheBestSolution(generation, bestAdaptativeIndividual);
+    // printTheBestSolution(generation, bestAdaptativeIndividual);
 
-  } else {
+    //} else {
 
     // Print fittest individual from population
-   // printTheBestSolution(generation, bestAdaptativeIndividual, bestAdaptativeIndividual.fitness);
+    // printTheBestSolution(generation, bestAdaptativeIndividual, bestAdaptativeIndividual.fitness);
 
-    let bestFitness;
-    let terminate;
-    // If the initial condition is not met in the first generation, it begins to repeat and the population goes through
-    // the parent selection, crossover and mutation process
-    do {
+  let bestFitness;
+  let terminate;
 
-      // 4 and 5. Select parent and apply crossover
-     // let newPopulation = objectGeneticAlgorithm.selectParentsAndCorssover();
+  // If the initial condition is not met in the first generation, it begins to repeat and the population goes through
+  // the parent selection, crossover and mutation process
+  // do {
 
-      //console.log(newPopulation);
-
-      // 6. Apply mutation
-     // let newPopulationMutation = objectGeneticAlgorithm.mutation(newPopulation);
-
-      //console.log(newPopulationMutation);
-
-      // 7. Evaluate population
-     // let bestAdaptativeIndividualNewPopulation = newPopulation.getBestAdaptedIndividual();
-     /!* bestFitness = bestAdaptativeIndividualNewPopulation.fitness;
-
-     if(bestFitness == undefined){
-        bestFitness = 0;
-      }*!/
+  // 4 and 5. Select parent and apply crossover
+  // let newPopulation = objectGeneticAlgorithm.selectParentsAndCorssover();
 
 
+  // 6. Apply mutation
+  //  let newPopulationMutation = objectGeneticAlgorithm.mutation(newPopulation);
 
-      // 8. Increment the current generation
-      generation++;
+  //console.error(typeof(newPopulation));
 
-      // Print fittest individual from population
-     // printTheBestSolution(generation, bestAdaptativeIndividual, bestFitness);
+  // 7. Evaluate population
+  // let bestAdaptativeIndividualNewPopulation = newPopulation.getBestAdaptedIndividual();
+
+  //console.error(bestAdaptativeIndividualNewPopulation);
+
+  // bestFitness = bestAdaptativeIndividualNewPopulation.fitness;
+
+  //  if (bestFitness == undefined) {
+  //    bestFitness = 0;
+  //  }
 
 
-    } while (generation <= maxGenerations);
+  // 8. Increment the current generation
+  // generation++;
+
+  // Print fittest individual from population
+  //  printTheBestSolution(generation, bestAdaptativeIndividualNewPopulation, bestFitness);
 
 
-  }
+  // } while (generation <= maxGenerations);
 
 
-  /!**
+  //}
+
+
+  /**
    * Print the data of the best solution.
    * @param generation
    * @param bestAdaptativeIndividual
-   *!/
+   */
   function printTheBestSolution(generation, bestAdaptativeIndividual, bestFitness) {
     // Print the best solution of first generation
-    squareTheBestSolution(bestAdaptativeIndividual.chromosome)
-    console.log('Generation: ' + generation);
-    console.log('The best solution number: ' + bestAdaptativeIndividual.chromosome);
+    //squareTheBestSolution(bestAdaptativeIndividual.chromosome)
+    //console.log('Generation: ' + generation);
+    //console.log('The best solution number: ' + bestAdaptativeIndividual.chromosome);
 
     // Table generation data test
     insertIntoTableGenerations(generation, bestAdaptativeIndividual.chromosome, bestFitness);
-  }*/
+  }
 
 
   //population.getBestAdaptedIndividual;
-
 
 
   /*  console.log('----------------------------------------------------------');
@@ -156,27 +178,38 @@ $(document).ready(function () {
    * Test of graphic part in the HTML ----------------------------------------------------------------------------------
    */
 
-  /*    // Print square test
-   const newObjectTest = new Individual(2, targetArray);
-   //console.log(newObjectTest.getChromosme);
+    // Print square test
+  const newObjectTest = new Individual(2, targetArray);
+  //console.log(newObjectTest.getChromosme);
+  //console.log(newObjectTest);
 
+  // Print "Starting State" on log
+  //windowTargetObjetive(newObjectTest.getChromosme);
+  //writeToLog('Starting State', newObjectTest.getChromosme, 'target');
 
-   // Print "Starting State" on log
-   windowTargetObjetive(newObjectTest.getChromosme);
-   writeToLog('Starting State', newObjectTest.getChromosme, 'target');
+  // Refresh and print square
+  //squareTheBestSolution(newObjectTest.getChromosme)
 
-   // Refresh and print square
-   //squareTheBestSolution(newObjectTest.getChromosme)
+  // Log test
+  writeToLog('dataName', 'data', 'array');
 
-   // Log test
-   writeToLog('dataName', 'data', 'array');
-
-   // Table generation data test
-   //insertIntoTableGenerations('genData', 'solData');*/
+  // Table generation data test
+  insertIntoTableGenerations('genData', 'solData');
 
 
   // End of log on console
   console.log('--- End of log ---');
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * Graphic part in the HTML ------------------------------------------------------------------------------------------
@@ -207,7 +240,6 @@ $(document).ready(function () {
    * @param data
    */
   function squareTheBestSolution(data) {
-    console.log(data)
     for (let i = 0; i < 16; i++) {
       $("#index-" + i).text(data[i]);
     }

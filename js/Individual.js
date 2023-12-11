@@ -34,29 +34,32 @@ class Individual {
    * Option ('empty'): Generate an individual with random chromosome<br>
    * Option ('specific', chromosome) Generate an individual with a specific chromosome<br>
    *
-   * @param chromosome {number[] || null}  Array of values between 1 and 0 that represent the genes
    * @param option {string} Indicates what type of individual is to be initialized
+   * @param chromosome {number[] || null}  Array of values between 1 and 0 that represent the genes
    */
-  constructor(option, chromosome) {
+  constructor(_option, _targetArray, _chromozomeSize, _chromosome) {
 
-    this.targetArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
-    this.chromosomeSize = chromosomeSize;
-    this.chromosome = chromosome;
+    this.targetArray = _targetArray;
+    this.chromosomeSize = _chromozomeSize;
+    this.chromosome = _chromosome;
 
     // Create an individual with random genes
-    if (option === 'default') {
+    if (_option === 'default') {
       this.chromosome = this.initializeChromosome();
+
+      console.log(this.chromosome)
+
       this.fitness = this.calculateFitness();
     }
 
     // Create an empty individual
-    if (option === 'empty') {
+    if (_option === 'empty') {
       this.chromosome = [];
       this.fitness = -1;
     }
 
     // Create an individual with a specific chromosome
-    if (option === 'specific') {
+    if (_option === 'specific') {
       this.fitness = this.calculateFitness();
     }
 
@@ -122,7 +125,7 @@ class Individual {
    * Getter chromosome
    * @return {number[]}
    */
-  get getChromosme() {
+  get chromosome() {
     return this.chromosome;
   }
 

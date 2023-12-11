@@ -36,7 +36,6 @@ class Population {
    *
    * @param {string} option
    * @param {number} size
-   * @param {number} chromosome
    */
   constructor(option, size) {
 
@@ -87,6 +86,7 @@ class Population {
 
         // Add the created individual to the population
         this.population.push(individualObject);
+
       }
 
       // Calculates the fitness of the initial population created
@@ -100,6 +100,13 @@ class Population {
    */
   calculatePopulationFitness() {
     let totalFintness = 0;
+
+    let copy = new Population()
+
+    copy = Object.assign({}, this.population, copy);
+
+    //console.error(this.population)
+
     for (let i = 1; i < this.size; i++) {
       totalFintness = totalFintness + this.population[i].fitness;
     }
@@ -112,7 +119,6 @@ class Population {
    * @returns {*}
    */
   setIndividualNew(index, individual) {
-    this.calculatePopulationFitness()
     this.population[index] = individual;
   }
 
@@ -128,15 +134,19 @@ class Population {
 
   /**
    * Obtains the best individual in the population
-   * @return {Individual[]}
+   * @return {Population[]}
    */
   getBestAdaptedIndividual() {
 
     let bestAdaptedIndividualFitness = 0;
     let bestAdaptedIndividual = [];
 
+
+/*    let copy1 = new Population();
+    copy1 = Object.assign({}, newPopulation, 1);*/
+
     for (let i = 1; i < this.size; i++) {
-      if (this.population[i].fitness > bestAdaptedIndividualFitness) {
+      if (this.population[i].fitness < bestAdaptedIndividualFitness) {
         bestAdaptedIndividualFitness = this.population[i].fitness;
         bestAdaptedIndividual = this.population[i];
       }
@@ -188,8 +198,8 @@ class Population {
    * Setter fitness
    * @param {number} fitness
    */
-  set setFitness(fitness) {
-    this.fitness = fitness;
+  setFitness() {
+    this.fitness = this.calculatePopulationFitness();
   }
 
 }
